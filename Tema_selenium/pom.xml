@@ -5,9 +5,9 @@
         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>TemaSelenium</groupId>
-    <artifactId>test05_rooms</artifactId>
+    <artifactId>test06_SocialMediaButtons</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>test05</name>
+    <name>test06_SocialMediaButtons</name>
     <description>Automated tests</description>
 
     <!-- Add Following Lines in Your POM File -->

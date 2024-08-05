@@ -1,4 +1,3 @@
-import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 //--
 import org.openqa.selenium.By;
@@ -8,7 +7,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 //--
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 //--
 import org.testng.Assert;
 //--
@@ -18,7 +16,7 @@ import org.testng.annotations.BeforeClass;
 //--
 import org.testng.annotations.Test;
 
-public class TestNG_02 {
+public class TestNG_Moreinfo {
 
     private WebDriver driver;
 
@@ -42,9 +40,8 @@ public class TestNG_02 {
         WebElement roomsButton =  driver.findElement(By.id("i6kl732v2label"));
         roomsButton.click();
 
-        WebElement standardSuiteButton = driver.findElement(By.xpath("//*[@id=\'content\']/div/div[2]/div/ul/li[1]/div/div[2]/div[1]/h3/a"));
-        Assert.assertTrue(standardSuiteButton.isDisplayed(), "The 'Standard Suite' button is not displayed!");
-
+        WebElement MoreInfoButton = driver.findElement(By.xpath("//*[@id=\"content\"]/div/div[2]/div/ul/li[1]/div/div[2]/div[4]/button"));
+        Assert.assertTrue(MoreInfoButton.isDisplayed(), "The 'More Info' button is not displayed!");
 
     }
 }
