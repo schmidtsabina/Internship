@@ -108,4 +108,26 @@ public class TestNG_NavBar {
         Assert.assertEquals(currentUrl,pageUrl, "The URL is incorrect after clicking the Contact button!");
     }
 
+    @Test
+    public void verifyRoomsbutton() {
+
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+
+        driver.get("https://ancabota09.wixsite.com/intern");
+
+        WebElement button = driver.findElement(By.id("i6kl732v2label"));
+
+        if (!button.isDisplayed()) {
+            Assert.fail("The 'Contact' button is not displayed!");
+        }else
+            System.out.println("The 'Contact' button is displayed");
+
+        String buttonText = button.getText();
+        Assert.assertEquals(buttonText, "CONTACT", "The button text is incorrect!");
+
+        button.click();
+        String currentUrl = driver.getCurrentUrl();
+        String pageUrl="https://ancabota09.wixsite.com/intern/contact";
+        Assert.assertEquals(currentUrl,pageUrl, "The URL is incorrect after clicking the Contact button!");
+    }
 }
