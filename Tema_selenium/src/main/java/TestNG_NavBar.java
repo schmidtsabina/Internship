@@ -66,7 +66,7 @@ public class TestNG_NavBar {
         Assert.assertEquals(buttonText, "BOOK NOW", "The button text is incorrect!");
         //verify that the button redirects you to the book now page
         String currentUrl = driver.getCurrentUrl();
-        Assert.assertTrue(currentUrl.contains("https://ancabota09.wixsite.com/intern/booknow"), "The URL is incorrect after clicking the button!");
+        Assert.assertTrue(currentUrl.contains("https://ancabota09.wixsite.com/intern/booknow"), "The URL is incorrect after clicking the 'Book now' button!");
     }
     @Test
     public void verifyExplorebutton() {
@@ -93,11 +93,7 @@ public class TestNG_NavBar {
         driver.get("https://ancabota09.wixsite.com/intern");
 
         WebElement button = driver.findElement(By.id("i6kl732v3label"));
-        //Assert.assertTrue(button.isDisplayed(), "The 'Contact' button is not displayed!");
-        if (!button.isDisplayed()) {
-            Assert.fail("The 'Contact' button is not displayed!");
-        }else
-            System.out.println("The 'Contact' button is displayed");
+        Assert.assertTrue(button.isDisplayed(), "The 'Contact' button is not displayed!");
 
         String buttonText = button.getText();
         Assert.assertEquals(buttonText, "CONTACT", "The button text is incorrect!");
@@ -105,7 +101,7 @@ public class TestNG_NavBar {
         button.click();
         String currentUrl = driver.getCurrentUrl();
         String pageUrl="https://ancabota09.wixsite.com/intern/contact";
-        Assert.assertEquals(currentUrl,pageUrl, "The URL is incorrect after clicking the Contact button!");
+        Assert.assertEquals(currentUrl,pageUrl, "The URL is incorrect after clicking the button!");
     }
 
     @Test
@@ -117,17 +113,14 @@ public class TestNG_NavBar {
 
         WebElement button = driver.findElement(By.id("i6kl732v2label"));
 
-        if (!button.isDisplayed()) {
-            Assert.fail("The 'Contact' button is not displayed!");
-        }else
-            System.out.println("The 'Contact' button is displayed");
+        Assert.assertTrue(button.isDisplayed(), "The 'Rooms' button is not displayed!");
 
         String buttonText = button.getText();
-        Assert.assertEquals(buttonText, "CONTACT", "The button text is incorrect!");
+        Assert.assertEquals(buttonText, "ROOMS", "The button text is incorrect!");
 
         button.click();
         String currentUrl = driver.getCurrentUrl();
-        String pageUrl="https://ancabota09.wixsite.com/intern/contact";
-        Assert.assertEquals(currentUrl,pageUrl, "The URL is incorrect after clicking the Contact button!");
+        String pageUrl="https://ancabota09.wixsite.com/intern/rooms";
+        Assert.assertEquals(currentUrl,pageUrl, "The URL is incorrect after clicking the button!");
     }
 }
