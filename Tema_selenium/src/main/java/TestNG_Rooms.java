@@ -40,7 +40,7 @@ public class TestNG_Rooms {
     public void afterClass() {
         driver.quit();
     }
-/*
+
     @Test
     public void verifyStandardsuiteimage(){
         driver.get("https://ancabota09.wixsite.com/intern");
@@ -241,7 +241,7 @@ public class TestNG_Rooms {
 
 
 @Test
-    public void calendar(){
+    public void calendar_(){
 
     driver.get("https://ancabota09.wixsite.com/intern");
 
@@ -654,8 +654,6 @@ public class TestNG_Rooms {
       }
   }
 
-
- */
     @Test
     public void searchfiltermorethanpossibleaccomodates(){
 
@@ -713,13 +711,101 @@ public class TestNG_Rooms {
         List<WebElement> roomElements = RoomsDisplayed.findElements(By.cssSelector(".room.s-separator"));
 
         Assert.assertTrue(roomElements.isEmpty(), "The rooms are displayed" );
-/*
+
         String message="We can’t seem to find what you’re looking for. Try another search";
         WebElement textdisplayed=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\'content\']/div/div[2]/div/p")));
         Assert.assertEquals(textdisplayed,message,"The message is not displayed");
-        
- */
+}
+
+    @Test
+    public void ClearFilters() {
+        driver.get("https://ancabota09.wixsite.com/intern");
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+
+        WebElement roomsButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("i6kl732v2label")));
+        roomsButton.click();
+
+        WebElement iframe = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"i6klgqap_0\"]/iframe")));
+        driver.switchTo().frame(iframe);
+
+        WebElement checkInField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='check-in']/div[1]")));
+        checkInField.click();
+
+        LocalDate today = LocalDate.now();
+        LocalDate threeDaysAfter = today.plusDays(3);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d, EEEE MMMM yyyy", Locale.ENGLISH);
+        DateTimeFormatter newFormatter = DateTimeFormatter.ofPattern("d MMM yyyy", Locale.ENGLISH);
+
+        String formattedDate = today.format(formatter);
+
+        String xpath = String.format("//button[@aria-label='%s']", formattedDate);
+
+        WebElement dateButtonCheckIn = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+        wait.withTimeout(Duration.ofSeconds(60));
+        dateButtonCheckIn.click();
+
+        //String formattedDate1 = today.format(newFormatter);
+
+        wait.withTimeout(Duration.ofSeconds(30));
+        WebElement checkOutFrame = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"hotel-container\"]/section/div/div/form/ul/li[2]/div[2]/div")));
+        checkOutFrame.click();
+
+        String newFormattedDate = threeDaysAfter.format(formatter);
+
+        String newXPath = String.format("(//button[@aria-label='%s'])[2]", newFormattedDate);
+
+        WebElement dateButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(newXPath)));
+        wait.withTimeout(Duration.ofSeconds(60));
+        dateButton.click();
+
+        //number of adults ==3 so that only one room is displayed
+        WebElement adultsButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#adults .up")));
+        for (int i = 0; i < 2; i++) {
+            adultsButton.click();
+        }
+
+        WebElement searchButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("s-button")));
+        searchButton.click();
+
+        WebElement roomsDisplayed = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='content']/div/div[2]")));
+        wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector(".room.s-separator")));
+
+        List<WebElement> roomElements = roomsDisplayed.findElements(By.cssSelector(".room.s-separator"));
+        Assert.assertEquals(roomElements.size(), 1, "The rooms are not displayed correctly");
+
+        List<WebElement> elementsBeforeClear = driver.findElements(By.xpath("//a[@class='s-title']"));
+        System.out.println("Rooms before clear:");
+        for (WebElement element : elementsBeforeClear) {
+            System.out.println(element.getText());
+        }
+
+        WebElement clearButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='content']/div/div[1]/h2/a")));
+        clearButton.click();
+
+        roomsDisplayed = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='content']/div/div[2]")));
+        wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector(".room.s-separator")));
+
+        roomElements = roomsDisplayed.findElements(By.cssSelector(".room.s-separator"));
+        Assert.assertEquals(roomElements.size(), 3, "The rooms are not displayed correctly after clearing the filter");
+
+        List<WebElement> elementsAfterClear = driver.findElements(By.xpath("//a[@class='s-title']"));
+        System.out.println("Rooms after clear:");
+        for (WebElement element : elementsAfterClear) {
+            System.out.println(element.getText());
+        }
+
     }
-  }
+
+/*
+    @Test
+    public void Searchagain()
+    {
+
+    }
+
+ */
+}
 
 
