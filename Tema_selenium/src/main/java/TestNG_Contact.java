@@ -1,10 +1,13 @@
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
-import java.util.Locale;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 //--
 import org.openqa.selenium.By;
@@ -114,6 +117,7 @@ public class TestNG_Contact {
 
     }
     /*
+    ////TESTE PENTRU NUME EMAIL SI TELEFON
     @Test
     public void ContactFormInvalidName() throws InterruptedException {
         //Write an incorrect name using numbers for example
@@ -213,5 +217,67 @@ public class TestNG_Contact {
         softAssert.assertAll();
 
     }
+@Test
+    public void MapIntegration() throws UnsupportedEncodingException, MalformedURLException {
+        //Map is expandable. Provides the location of the hq
+    driver.get("https://ancabota09.wixsite.com/intern");
+    WebElement Contactbutton = driver.findElement(By.id("i6kl732v3label"));
+    Contactbutton.click();
 
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    WebElement iframe=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//iframe[@title='Google Maps']")));
+    Assert.assertTrue(iframe.isDisplayed(), "The map is not displayed");
+    driver.switchTo().frame(iframe);
+
+    WebElement fullscreenButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".gm-control-active.gm-fullscreen-control")));
+    Assert.assertTrue(fullscreenButton.isDisplayed(), "Fullscreen button is not displayed");
+    fullscreenButton.click();
+
+    WebElement addressElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"map_canvas\"]/div/div[3]/div[13]/div/a")));
+    String href = addressElement.getAttribute("href");
+
+    // Print the href attribute for debugging purposes
+    System.out.println("URL: " + href);
+
+    // Decode the URL
+    String decodedUrl = URLDecoder.decode(href, StandardCharsets.UTF_8.name());
+
+    // Parse the URL to extract query parameters
+    URL url = new URL(decodedUrl);
+    String query = url.getQuery();
+
+    // Extract parameters from the query string
+    Map<String, String> params = new HashMap<>();
+    for (String param : query.split("&")) {
+        String[] pair = param.split("=");
+        if (pair.length == 2) {
+            params.put(pair[0], pair[1]);
+        }
+    }
+
+    // Extract latitude and longitude from the parameters
+    double latitude = 0;
+    double longitude = 0;
+    String ll = params.get("ll");
+    if (ll != null) {
+        String[] coordinates = ll.split(",");
+        if (coordinates.length == 2) {
+
+            latitude = Double.parseDouble(coordinates[0]);
+            longitude = Double.parseDouble(coordinates[1]);
+
+            // Print latitude and longitude
+            System.out.println("Latitude: " + latitude);
+            System.out.println("Longitude: " + longitude);
+
+
+        }
+    }
+    Double expectedLat = 37.77065;
+    Double expectedLng = -122.387301;
+
+    // Assertions to check if the pin is at the correct location
+    Assert.assertEquals(expectedLat, latitude, "The pin's latitude is incorrect.");
+    Assert.assertEquals(expectedLng, longitude, "The pin's longitude is incorrect.");
+    }
 }
