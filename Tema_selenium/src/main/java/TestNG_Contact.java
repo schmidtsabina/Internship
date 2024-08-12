@@ -236,9 +236,6 @@ public class TestNG_Contact {
     WebElement addressElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"map_canvas\"]/div/div[3]/div[13]/div/a")));
     String href = addressElement.getAttribute("href");
 
-    // Print the href attribute for debugging purposes
-    System.out.println("URL: " + href);
-
     // Decode the URL
     String decodedUrl = URLDecoder.decode(href, StandardCharsets.UTF_8.name());
 
@@ -265,12 +262,6 @@ public class TestNG_Contact {
 
             latitude = Double.parseDouble(coordinates[0]);
             longitude = Double.parseDouble(coordinates[1]);
-
-            // Print latitude and longitude
-            System.out.println("Latitude: " + latitude);
-            System.out.println("Longitude: " + longitude);
-
-
         }
     }
     Double expectedLat = 37.77065;
