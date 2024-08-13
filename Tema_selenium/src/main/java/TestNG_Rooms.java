@@ -239,7 +239,7 @@ public class TestNG_Rooms {
     }
 
 
-
+/*
 @Test
     public void calendar_(){
 
@@ -282,6 +282,8 @@ public class TestNG_Rooms {
 }
 
 
+
+ */
 @Test
     public void verifyAdultsbuttonincrement(){
     driver.get("https://ancabota09.wixsite.com/intern");

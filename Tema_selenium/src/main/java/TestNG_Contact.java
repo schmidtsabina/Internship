@@ -45,6 +45,21 @@ public class TestNG_Contact {
     }
 
     @Test
+    public void checkParagraph(){
+        driver.get("https://ancabota09.wixsite.com/intern");
+        WebElement Contactbutton = driver.findElement(By.id("i6kl732v3label"));
+        Contactbutton.click();
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement paragraphElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("i6ly3ckc_0")));
+
+        String paragraphText = paragraphElement.getText();
+        //String expectedText="If you have any questions, please contact us by telephone or email and we'll get back to you as soon as possible.We look forward to hearing from you.";
+
+        Assert.assertTrue(paragraphText.contains("If you have any questions, please contact us by telephone or email and we'll get back to you as soon as possible."),"The text is not relevant to the page");
+        Assert.assertTrue(paragraphText.contains("We look forward to hearing from you."),"The text no2 is not relevant to the page");
+    }
+    @Test
     public void verifyNameRequired() throws InterruptedException {
         driver.get("https://ancabota09.wixsite.com/intern");
         WebElement Contactbutton = driver.findElement(By.id("i6kl732v3label"));
@@ -116,8 +131,7 @@ public class TestNG_Contact {
         Assert.assertEquals(warningmessage, "Please fill out this field.", "Browser validation message not displayed as expected.");
 
     }
-    /*
-    ////TESTE PENTRU NUME EMAIL SI TELEFON
+
     @Test
     public void ContactFormInvalidName() throws InterruptedException {
         //Write an incorrect name using numbers for example
@@ -144,13 +158,45 @@ public class TestNG_Contact {
         Assert.assertEquals(Messagefield.getAttribute("value"), "Message", "The message is not displayed in the Message field");
         Thread.sleep(2000);
         SubmitButton.click();
-        //check if warning
-
+        String name=namefield.getAttribute("value");
+        Assert.assertTrue(name.matches("[a-zA-Z]*"), "The name field contains non-letter characters");
 
     }
-*/
+    @Test
+    public void ContactFormInvalidPhone() throws InterruptedException {
+        //Write an incorrect name using numbers for example
+        driver.get("https://ancabota09.wixsite.com/intern");
+        WebElement Contactbutton = driver.findElement(By.id("i6kl732v3label"));
+        Contactbutton.click();
 
+        WebElement form=driver.findElement(By.id("comp-jxbsa1dm"));
+        Assert.assertTrue(form.isDisplayed(), "The contact form is not displayed");
 
+        WebElement SubmitButton=form.findElement(By.xpath("//*[@id=\"comp-jxbsa1fi\"]/button"));
+        Assert.assertTrue(SubmitButton.isDisplayed(), "The contact form is not displayed");
+        //name field
+        WebElement namefield=driver.findElement(By.id("input_comp-jxbsa1e9"));
+        namefield.sendKeys("Sabina");
+        Assert.assertEquals(namefield.getAttribute("value"), "Sabina", "The name is not displayed in the name field");
+        //EMAIL FIELD REQUIRED
+        WebElement emailfield=form.findElement(By.xpath("//*[@id=\"input_comp-jxbsa1em\"]"));
+        emailfield.sendKeys("email@mail.com");
+        Assert.assertEquals(emailfield.getAttribute("value"), "email@mail.com", "The entered Email is not displayed in the Email field");
+
+        WebElement phonefield = form.findElement(By.id("input_comp-jxbsa1ev"));
+        phonefield.sendKeys("0777777aaaaa");
+        Assert.assertEquals(phonefield.getAttribute("value"), "0777777aaaaa", "The entered Phone number is not displayed in the Phone field");
+
+        //Message field because required
+        WebElement Messagefield=driver.findElement(By.xpath("//*[@id=\"textarea_comp-jxbsa1f7\"]"));
+        Messagefield.sendKeys("Message");
+        Assert.assertEquals(Messagefield.getAttribute("value"), "Message", "The message is not displayed in the Message field");
+        Thread.sleep(2000);
+        SubmitButton.click();
+        String phonenumber=namefield.getAttribute("value");
+        Assert.assertTrue(phonenumber.matches("\\d+"), "The name field contains non-digit characters");
+
+    }
 
     @Test
     public void verifyInvalidmail() throws InterruptedException {
