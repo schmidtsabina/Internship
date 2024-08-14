@@ -800,14 +800,90 @@ public class TestNG_Rooms {
 
     }
 
-/*
+
     @Test
-    public void Searchagain()
-    {
+    public void Searchagain() throws InterruptedException {
+        driver.get("https://ancabota09.wixsite.com/intern");
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+
+        WebElement roomsButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("i6kl732v2label")));
+        roomsButton.click();
+
+        WebElement iframe = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"i6klgqap_0\"]/iframe")));
+        driver.switchTo().frame(iframe);
+
+        WebElement checkInField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='check-in']/div[1]")));
+        checkInField.click();
+
+        LocalDate today = LocalDate.now();
+        LocalDate threeDaysAfter = today.plusDays(3);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d, EEEE MMMM yyyy", Locale.ENGLISH);
+        DateTimeFormatter newFormatter = DateTimeFormatter.ofPattern("d MMM yyyy", Locale.ENGLISH);
+
+        String formattedDate = today.format(formatter);
+
+        String xpath = String.format("//button[@aria-label='%s']", formattedDate);
+
+        WebElement dateButtonCheckIn = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+        wait.withTimeout(Duration.ofSeconds(60));
+        dateButtonCheckIn.click();
+
+        wait.withTimeout(Duration.ofSeconds(30));
+        WebElement checkOutFrame = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"hotel-container\"]/section/div/div/form/ul/li[2]/div[2]/div")));
+        checkOutFrame.click();
+
+        String newFormattedDate = threeDaysAfter.format(formatter);
+
+        String newXPath = String.format("(//button[@aria-label='%s'])[2]", newFormattedDate);
+
+        WebElement dateButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(newXPath)));
+        wait.withTimeout(Duration.ofSeconds(60));
+        dateButton.click();
+
+        //number of adults
+        WebElement adultsbutton= wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#adults .up")));
+        adultsbutton.click();
+
+        WebElement searchButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("s-button")));
+        searchButton.click();
+        //All the rooms have to be displayed
+        WebElement RoomsDisplayed = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\'content\']/div/div[2]")));
+
+        // Wait for the room card elements to be present
+        wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector(".room.s-separator")));
+
+        // Find all room card elements with both classes
+        List<WebElement> roomElements = RoomsDisplayed.findElements(By.cssSelector(".room.s-separator"));
+
+        //Assert.assertTrue(roomElements.size() == 3, "The rooms are not displayed" );
+
+        List<WebElement> elements = driver.findElements(By.xpath("//a[@class='s-title']"));
+        System.out.println("Rooms after first search");
+        // Print the titles of the rooms that are displayed
+        for (WebElement element : elements) {
+            String title = element.getText();
+            System.out.println(title);
+        }
+        //new search
+        adultsbutton.click(); //change data
+        WebElement searchagainButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"hotel-container\"]/section/div/div/form/ul/li[5]/button")));
+        searchagainButton.click(); //search again
+        Thread.sleep(2000);
+        wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector(".room.s-separator")));
+
+        // updated list of room elements
+        elements = driver.findElements(By.xpath("//a[@class='s-title']"));
+        System.out.println("Rooms after second search");
+        for (WebElement element : elements) {
+            String title = element.getText();
+            System.out.println(title);
+        }
 
     }
 
- */
+
 }
 
 

@@ -146,7 +146,11 @@ public class TestNG_Chat{
     //attach an image
     WebElement AttachButton=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div/div[2]/div/div[2]/div[2]/div/button[2]")));
     Assert.assertTrue(AttachButton.isDisplayed(),"The emoji keyboard did not open ");
-
-}
+/*
+    WebElement FileInput=driver.findElement(By.cssSelector("input[type='file']"));
+    String filepath= "C:\\Users\\z004zy5k\\Downloads\\OIP (1).jpg";
+    FileInput.sendKeys(filepath);
+*/
+    }
 
 }
