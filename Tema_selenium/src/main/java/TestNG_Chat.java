@@ -47,6 +47,7 @@ public class TestNG_Chat{
         driver.switchTo().frame(iframe);
 
         WebElement ChatButton=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"minimized-chat\"]")));
+        Assert.assertTrue(ChatButton.isDisplayed(),"The chat button is not displayed");
         ChatButton.click();
 
         WebElement ChatExpanded=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div")));
@@ -58,12 +59,13 @@ public class TestNG_Chat{
         textarea.sendKeys("test");
 
         WebElement SendButton=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div/div[2]/div/div[2]/div[2]/div/button[2]")));
+        Assert.assertTrue(SendButton.isDisplayed(),"The send button is not displayed");
         SendButton.click();
         Thread.sleep(5000);
 
         WebElement Messagesent=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"chat-messages-list\"]/div[2]/div/div/div/div/div/div/div/div/div/div")));
         String Message=Messagesent.getText();
-        Assert.assertEquals(Message,"test","The message that was not sent correctly");
+        Assert.assertEquals(Message,"test","The message was not sent correctly");
 
         WebElement form=wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("zd18O")));
         Assert.assertTrue(form.isDisplayed(),"The form is not displayed");
@@ -111,7 +113,7 @@ public class TestNG_Chat{
 
     }
 @Test
-    public void ChatFunctionalities() throws InterruptedException {
+    public void ChatFunctionalitiesEmoji() throws InterruptedException {
         //send an emoji
     driver.get("https://ancabota09.wixsite.com/intern");
 
@@ -143,14 +145,35 @@ public class TestNG_Chat{
 
     Thread.sleep(3000);
 
+
+
+    }
+@Test
+    public void ChatFunctionalitiesAttachImage() throws InterruptedException {
+    driver.get("https://ancabota09.wixsite.com/intern");
+
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+
+    WebElement iframe=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"comp-jr4sqg2g\"]/iframe")));
+    driver.switchTo().frame(iframe);
+
+    WebElement ChatButton=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"minimized-chat\"]")));
+    ChatButton.click();
+
+    WebElement ChatExpanded=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div")));
+    Assert.assertTrue(ChatExpanded.isDisplayed(),"The chat did not open ");
+
     //attach an image
     WebElement AttachButton=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div/div[2]/div/div[2]/div[2]/div/button[2]")));
     Assert.assertTrue(AttachButton.isDisplayed(),"The emoji keyboard did not open ");
-/*
+
     WebElement FileInput=driver.findElement(By.cssSelector("input[type='file']"));
     String filepath= "C:\\Users\\z004zy5k\\Downloads\\OIP (1).jpg";
     FileInput.sendKeys(filepath);
-*/
-    }
+    Thread.sleep(3000);
 
+    WebElement Image=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"chat-messages-list\"]/div[2]/div/div/div/div[1]/div/div/div/div/div/div")));
+    Assert.assertTrue(Image.isDisplayed(),"The image was not sent");
+
+    }
 }

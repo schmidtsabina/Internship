@@ -84,7 +84,7 @@ public class TestNG_RoomPageStandardSuite {
         WebElement checkinvalue = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("check_in-value")));
         String formattedDate1 = today.format(newFormatter);
 
-        Assert.assertEquals(checkinvalue.getText(), formattedDate1, "The selected date is NOT displayed in Check In box");
+        Assert.assertEquals(checkinvalue.getText(), formattedDate1, "The selected date is not displayed in Check In box");
 
         String newFormattedDate = threeDaysAfter.format(formatter);
 
@@ -97,7 +97,7 @@ public class TestNG_RoomPageStandardSuite {
         WebElement checkOutvalue = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("check_out-value")));
         String formattedDate2 = threeDaysAfter.format(newFormatter);
 
-        Assert.assertEquals(checkOutvalue.getText(), formattedDate2, "The selected date is NOT displayed in Check Out box");
+        Assert.assertEquals(checkOutvalue.getText(), formattedDate2, "The selected date is not displayed in Check Out box");
 
 }
 @Test
@@ -275,7 +275,6 @@ public void AdultsButton() throws InterruptedException {
 
         WebElement BookNowArea= wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"singleroom\"]/div[2]")));
         Assert.assertTrue(BookNowArea.isDisplayed(), "The booking area is not displayed!");
-
         WebElement checkin=driver.findElement(By.id("check-in"));
         checkin.click();
 
@@ -296,7 +295,7 @@ public void AdultsButton() throws InterruptedException {
         WebElement checkinvalue = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("check_in-value")));
         String formattedDate1 = today.format(newFormatter);
 
-        Assert.assertEquals(checkinvalue.getText(), formattedDate1, "The selected date is NOT displayed in Check In box");
+        Assert.assertEquals(checkinvalue.getText(), formattedDate1, "The selected date is not displayed in Check In box");
 
         String newFormattedDate = threeDaysAfter.format(formatter);
 
@@ -312,6 +311,7 @@ public void AdultsButton() throws InterruptedException {
         Assert.assertEquals(checkOutvalue.getText(), formattedDate2, "The selected date is not displayed in Check Out box");
 
         WebElement adultsbuttonincrement=wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#adults .up")));
+        Assert.assertTrue(adultsbuttonincrement.isDisplayed(),"The button is not displayed");
         int maxaccomodates=6;
         for (int i=0;i<maxaccomodates-1;i++)
         {
@@ -348,8 +348,6 @@ public void AdultsButton() throws InterruptedException {
         String priceaftertext = priceafter.getText();
 
         Assert.assertNotEquals(pricebeforetext, priceaftertext, "The price did not change after adding another night");
-
-
 
     }
 

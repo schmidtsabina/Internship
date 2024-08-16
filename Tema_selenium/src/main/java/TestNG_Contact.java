@@ -52,7 +52,7 @@ public class TestNG_Contact {
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement paragraphElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("i6ly3ckc_0")));
-
+        Assert.assertTrue(paragraphElement.isDisplayed(),"The paragraph is not displayed");
         String paragraphText = paragraphElement.getText();
         //String expectedText="If you have any questions, please contact us by telephone or email and we'll get back to you as soon as possible.We look forward to hearing from you.";
 
@@ -232,21 +232,26 @@ public class TestNG_Contact {
         Contactbutton.click();
 
         WebElement form = driver.findElement(By.id("comp-jxbsa1dm"));
+        softAssert.assertTrue(form.isDisplayed(),"The form is not displayed");
         WebElement SubmitButton = form.findElement(By.xpath("//*[@id=\"comp-jxbsa1fi\"]/button"));
 
         WebElement namefield = driver.findElement(By.id("input_comp-jxbsa1e9"));
+        softAssert.assertTrue(namefield.isDisplayed(),"The name field is not displayed");
         namefield.sendKeys("Sabina");
         softAssert.assertEquals(namefield.getAttribute("value"), "Sabina", "The name is not displayed in the name field");
 
         WebElement emailfield = form.findElement(By.xpath("//*[@id=\"input_comp-jxbsa1em\"]"));
+        softAssert.assertTrue(emailfield.isDisplayed(),"The email field is not displayed");
         emailfield.sendKeys("email@mail.com");
         softAssert.assertEquals(emailfield.getAttribute("value"), "email@mail.com", "The entered Email address is not displayed in the Email field");
 
         WebElement phonefield = form.findElement(By.id("input_comp-jxbsa1ev"));
+        softAssert.assertTrue(phonefield.isDisplayed(),"The phone field is not displayed");
         phonefield.sendKeys("0777777");
         softAssert.assertEquals(phonefield.getAttribute("value"), "0777777", "The entered Phone number is not displayed in the Phone field");
 
         WebElement Messagefield = form.findElement(By.xpath("//*[@id=\"textarea_comp-jxbsa1f7\"]"));
+        softAssert.assertTrue(Messagefield.isDisplayed(),"The message field is not displayed");
         Messagefield.sendKeys("Message");
         softAssert.assertEquals(Messagefield.getAttribute("value"), "Message", "The message is not displayed in the Message field");
 

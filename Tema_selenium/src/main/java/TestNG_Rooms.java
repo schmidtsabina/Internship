@@ -175,7 +175,6 @@ public class TestNG_Rooms {
     @Test
     public void verifyAmenities1(){
         //verify A/C
-        //load the page
         driver.get("https://ancabota09.wixsite.com/intern");
         //rooms button
         WebElement roomsButton = driver.findElement(By.id("i6kl732v2label"));
@@ -184,7 +183,6 @@ public class TestNG_Rooms {
         WebElement iframe = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\'i6klgqap_0\']/iframe")));
         driver.switchTo().frame(iframe);
 
-        // Locate the element that needs to be hovered over
         WebElement hoverElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\'content\']/div/div[2]/div/ul/li[1]/div/div[2]/ul/li[1]/div")));//li .amenity[tooltip='A/C']
 
         //SCROLL TO ELEMENT
@@ -192,14 +190,11 @@ public class TestNG_Rooms {
         js.executeScript("arguments[0].scrollIntoView(true);", hoverElement);
 
 
-        // Perform hover action using Actions class
         Actions action = new Actions(driver);
         action.moveToElement(hoverElement).perform();
 
-        // Capture the tooltip text
         String tooltipText = hoverElement.getAttribute("tooltip");
 
-        // Assert the tooltip text
         String expectedTooltipText = "A/C";
         Assert.assertEquals(tooltipText, expectedTooltipText, "Tooltip text does not match!");
 
@@ -209,7 +204,6 @@ public class TestNG_Rooms {
     @Test
     public void verifyAmenities2(){
         //verify TV
-        //load the page
         driver.get("https://ancabota09.wixsite.com/intern");
         //rooms button
         WebElement roomsButton = driver.findElement(By.id("i6kl732v2label"));
@@ -218,72 +212,23 @@ public class TestNG_Rooms {
         WebElement iframe = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\'i6klgqap_0\']/iframe")));
         driver.switchTo().frame(iframe);
 
-        // Locate the element that needs to be hovered over
         WebElement hoverElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\'content\']/div/div[2]/div/ul/li[1]/div/div[2]/ul/li[2]/div")));//li .amenity[tooltip='A/C']
 
         //SCROLL TO ELEMENT
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView(true);", hoverElement);
 
-        // Perform hover action using Actions class
         Actions action = new Actions(driver);
         action.moveToElement(hoverElement).perform();
 
-        // Capture the tooltip text
         String tooltipText = hoverElement.getAttribute("tooltip");
 
-        // Assert the tooltip text
         String expectedTooltipText = "TV";
         Assert.assertEquals(tooltipText, expectedTooltipText, "Tooltip text does not match!");
 
     }
 
 
-/*
-@Test
-    public void calendar_(){
-
-    driver.get("https://ancabota09.wixsite.com/intern");
-
-    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-
-    WebElement roomsButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("i6kl732v2label")));
-    roomsButton.click();
-
-
-    WebElement iframe = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='i6klgqap_0']/iframe")));
-    driver.switchTo().frame(iframe);
-    //Print current URL and title for debugging
-    System.out.println("Current URL: " + driver.getCurrentUrl());
-    System.out.println("Current Title: " + driver.getTitle());
-
-// Click on the check-in field
-    WebElement checkInField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='check-in']/div[1]")));
-    checkInField.click();
-
-// Get today's date and format it
-    LocalDate today = LocalDate.now();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d, EEEE MMMM yyyy", Locale.ENGLISH);
-    String formattedToday = today.format(formatter);
-
-// Click on the date button for today's date
-    WebElement dateButtonCheckIn = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(String.format("//div[@class='calendar-popup s-field s-separator visible']//button[@aria-label='%s']", formattedToday))));
-    dateButtonCheckIn.click();
-
-    driver.switchTo().frame(iframe);
-    WebElement CheckOutField=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='check-out']/div[1]")));
-    CheckOutField.click();
-
-    LocalDate checkOutDate = today.plusDays(3);
-    String formattedCheckOutDate = checkOutDate.format(formatter);
-
-    WebElement dateButtonCheckOut = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(String.format("//div[@class='calendar-popup s-field s-separator']//button[@aria-label='%s'", formattedCheckOutDate))));
-    dateButtonCheckOut.click();
-}
-
-
-
- */
 @Test
     public void verifyAdultsbuttonincrement(){
     driver.get("https://ancabota09.wixsite.com/intern");
@@ -297,6 +242,7 @@ public class TestNG_Rooms {
     driver.switchTo().frame(iframe);
 
     WebElement adultsbutton= wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@role='button' and @ng-disabled='isMax()' and @ng-click='up($event)' and contains(@class, 'up') and @aria-label='Increment']\n")));
+    Assert.assertTrue(adultsbutton.isDisplayed(),"The adults increment button is not displayed");
     adultsbutton.click();
 
     WebElement adultsfield=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\'adults\']")));
@@ -321,6 +267,7 @@ public class TestNG_Rooms {
         driver.switchTo().frame(iframe);
 
         WebElement kidsbutton= wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"hotel-container\"]/section/div/div/form/ul/li[4]//a[@role='button' and @tabindex='-1' and @href='#' and @ng-disabled='isMax()' and @ng-click='up($event)' and @class='up' and @aria-label='Increment']\n")));
+        Assert.assertTrue(kidsbutton.isDisplayed(),"The kids increment button is not displayed");
         kidsbutton.click();
         WebElement kidsfield=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\'children\']")));
         String text=kidsfield.getText();
@@ -328,10 +275,8 @@ public class TestNG_Rooms {
     }
 
 
-
-
     @Test
-    public void calendar(){
+    public void calendar() throws InterruptedException {
 
         driver.get("https://ancabota09.wixsite.com/intern");
 
@@ -344,6 +289,7 @@ public class TestNG_Rooms {
         driver.switchTo().frame(iframe);
 
         WebElement checkInField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='check-in']/div[1]")));
+        Assert.assertTrue(checkInField.isDisplayed(),"The check in field is not displayed");
         checkInField.click();
 
         LocalDate today = LocalDate.now();
@@ -380,7 +326,7 @@ public class TestNG_Rooms {
         WebElement checkOutvalue = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("check_out-value")));
         String formattedDate2 = threeDaysAfter.format(newFormatter);
 
-        Assert.assertEquals(checkOutvalue.getText(), formattedDate2, "The selected date is NOT displayed in Check Out box");
+        Assert.assertEquals(checkOutvalue.getText(), formattedDate2, "The selected date is not displayed in Check Out box");
 
     }
 
@@ -437,12 +383,7 @@ public class TestNG_Rooms {
     WebElement afterkids=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\'children\']")));
     Assert.assertNotEquals(beforekids,afterkids,"The number of kids has not changed");
 
-    //number of adults
-    //WebElement adultsbutton=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\'adults\']")));
-    //String beforeadults=adultsbutton.getText();
     WebElement adultsbuttondecrement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@role='button' and @aria-label='Decrement' and @class='down' and @disabled='disabled']")));
-    //Assert.assertFalse(adultsbuttondecrement.isEnabled(),"The adults decrement button is enabled!");
-    // If the element is found it means it is disabled
     Assert.assertNotNull(adultsbuttondecrement, "The adults decrement button should be disabled, but it is not.");
 }
 
@@ -524,6 +465,7 @@ public class TestNG_Rooms {
       driver.switchTo().frame(iframe);
 
       WebElement checkInField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='check-in']/div[1]")));
+      Assert.assertTrue(checkInField.isDisplayed(),"The check in field is not displayed");
       checkInField.click();
 
       LocalDate today = LocalDate.now();
@@ -540,7 +482,10 @@ public class TestNG_Rooms {
       wait.withTimeout(Duration.ofSeconds(60));
       dateButtonCheckIn.click();
 
-      //String formattedDate1 = today.format(newFormatter);
+      WebElement checkinvalue = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("check_in-value")));
+      String formattedDate1 = today.format(newFormatter);
+
+      Assert.assertEquals(checkinvalue.getText(), formattedDate1, "The selected date is NOT displayed in Check In box");
 
       wait.withTimeout(Duration.ofSeconds(30));
       WebElement checkOutFrame = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"hotel-container\"]/section/div/div/form/ul/li[2]/div[2]/div")));
@@ -554,29 +499,31 @@ public class TestNG_Rooms {
       wait.withTimeout(Duration.ofSeconds(60));
       dateButton.click();
 
+      WebElement checkOutvalue = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("check_out-value")));
+      String formattedDate2 = threeDaysAfter.format(newFormatter);
+
+      Assert.assertEquals(checkOutvalue.getText(), formattedDate2, "The selected date is not displayed in Check Out box");
+
       //number of adults
       WebElement adultsbutton= wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#adults .up")));
-     // for(int i=0;i<=1;i++)
-     // {
-         adultsbutton.click();
-      //}
+      Assert.assertTrue(adultsbutton.isDisplayed(),"The adults increment button is not displayed");
+      adultsbutton.click();
 
       WebElement searchButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("s-button")));
+      Assert.assertTrue(searchButton.isDisplayed(),"The search button is not displayed");
       searchButton.click();
       //All the rooms have to be displayed
       WebElement RoomsDisplayed = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\'content\']/div/div[2]")));
 
-      // Wait for the room card elements to be present
       wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector(".room.s-separator")));
 
-      // Find all room card elements with both classes
       List<WebElement> roomElements = RoomsDisplayed.findElements(By.cssSelector(".room.s-separator"));
 
       Assert.assertTrue(roomElements.size() == 3, "The rooms are not displayed" );
 
       List<WebElement> elements = driver.findElements(By.xpath("//a[@class='s-title']"));
 
-      // Print the titles of the rooms that are displayed
+      System.out.println("The rooms displayed are:");
       for (WebElement element : elements) {
           String title = element.getText();
           System.out.println(title);
@@ -717,6 +664,8 @@ public class TestNG_Rooms {
         String message="We can’t seem to find what you’re looking for. Try another search";
         WebElement textdisplayed=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\'content\']/div/div[2]/div/p")));
         Assert.assertEquals(textdisplayed,message,"The message is not displayed");
+
+
 }
 
     @Test
